@@ -1,6 +1,6 @@
 
 package ec.edu.espe.lab_9.model;
-import java.util.Calendar;
+import java.util.*;
 
 /**
  *
@@ -25,7 +25,7 @@ public class Person {
     }
 
     public void setDayBirthDate(int dayBirthDate) {
-        if(dayBirthDate > 32 || dayBirthDate < 1){
+        if(dayBirthDate > 30 || dayBirthDate < 1){
             System.out.println("Ingreso de dia incorrecto, ingrese otro");
             this.dayBirthDate = 0;
         }
@@ -77,25 +77,41 @@ public class Person {
         int yearCalendar = now.get(Calendar.YEAR);
         return yearCalendar;
     }
-    public int calculateAge(){
-        int day, month, year, restDay, restMonth;
-        if(getYearActual() < yearBirthDate){
-            day = getDayActual() + 30;
-            month = getMonthActual() - 1;
-            year = getYearActual() - 1;
-            restDay = getDayActual() - dayBirthDate;
+    public String calculateAge(String namePerson){
+        int dayAge, monthAge, yearAge;
+        String text, name, age, stringYearAge, stringMonthAge, stringDayAge, separateStringYearAge, separateStringMonthAge, separateStringDayAge;
+        if(getMonthActual() > dayBirthDate){
+           yearAge = getYearActual() - yearBirthDate;
+           dayAge = (30 - dayBirthDate) - getDayActual();
+           if(dayBirthDate > getDayActual()){
+               monthAge = getMonthActual() - monthBirthDate - 1;
+           }
+           else{
+               monthAge = getMonthActual() - monthBirthDate;
+           }
         }
         else{
-            restDay = getDayActual() - dayBirthDate;
+            yearAge = getYearActual() - yearBirthDate - 1;
+            dayAge = (30 - dayBirthDate) + getDayActual();
+            if(dayBirthDate >= getDayActual()){
+               monthAge = getMonthActual() - monthBirthDate - 1;
+           }
+           else{
+               monthAge = getMonthActual() - monthBirthDate;
+           }
         }
-        if(getMonthActual() < monthBirthDate){
-            month = getMonthActual() + 12;
-            year = getYearActual() - 1;
-            restMonth = getMonthActual() - monthBirthDate;
+        if (monthAge < 0){
+            monthAge += 12;
         }
-        else{
-            restMonth = getMonthActual() - monthBirthDate;
-        }
-        return getYearActual() - yearBirthDate;
+        name=/*"Nombre: "+*/namePerson;
+        stringYearAge=Integer.toString(yearAge);
+        stringMonthAge=Integer.toString(monthAge);
+        stringDayAge=Integer.toString(dayAge);
+        separateStringYearAge=""+stringYearAge;
+        separateStringMonthAge="/"+stringMonthAge;
+        separateStringDayAge="/"+stringDayAge;
+        age=";"+separateStringYearAge+separateStringMonthAge+separateStringDayAge;
+        text=name+age;
+        return text;
     }
 }
