@@ -7,6 +7,7 @@ package exeptions;
 
 import ec.edu.espe.animal.model.Animal;
 import ec.edu.espe.operations.utils.Operation;
+import java.io.IOException;
 
 /**
  *
@@ -29,7 +30,43 @@ public class Exeptions {
         System.out.println(operation.add((float)1.2,(float)1.9));
         System.out.println(operation.add(1,(float)1.9));
         Animal animal = null;
-        System.out.println(animal.eyes);
+        //animal = new Animal();
+        /*
+        if(animal != null){
+            System.out.println("The animal exists");
+        }else{
+            System.out.println("The animal doesn't exist");
+        }
+        */
+        try{
+            System.out.println("The first line running");
+            System.out.println(animal.eyes);
+            System.out.println("The program is still running");
+        }catch(NullPointerException ex){
+            /*
+            System.out.println("An error occurred "+ex);
+            System.out.println("The exception is "+ex.getMessage());
+            System.out.println(ex.toString());
+            if(ex.toString().equals("java.lang.NullPointerException")){
+                System.out.println("There are no animal created");
+            }
+            */
+            animal = new Animal();
+            if (animal == null){
+                System.out.println(animal.eyes);
+            }else{
+                animal.eyes = "brown";
+                System.out.println("The eyes of the horse is "+animal.eyes);
+            }
+            
+        }finally{
+            System.out.println("After the exception");
+        }
+        System.out.println("This is the barn number "+animal.getBarnNumber());
+        Animal animal2 = new Animal();
+        System.out.println(animal2.getBarnNumber());
+        animal.assignBarnNumber(18);
+        System.out.println(animal2.getBarnNumber());
     }
     
 }
